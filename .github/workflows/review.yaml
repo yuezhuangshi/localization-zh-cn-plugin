@@ -1,0 +1,73 @@
+name: Obtain original message and convert ascii to native in pull request
+
+on:
+  pull_request:
+    types:
+      - opened
+      - ready_for_review
+#    paths:
+#      - '**/**.properties'
+
+jobs:
+  env:
+    name: env-list
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get All Env
+        run:
+          printenv | sort
+  build:
+    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    name: Test changed-files
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v23.1
+
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
+
+  # 应该找到本次改动的文件和对应改动的 key
+#  {
+#    origin: core/src/main/resources/jenkins/management/Messages.properties # _zh_CN -> '' 获取英文用
+#    file: core/src/main/resources/jenkins/management/Messages_zh_CN.properties # 文件地址用来读取 ascii
+#    key: CliLink.DisplayName
+#    type: core
+#  }
+#  {
+#    plugin:
+#    origin: plugins/cloudbees-folder-plugin/src/main/resources/com/cloudbees/hudson/plugins/folder/AbstractFolder/view-index-top.properties # _zh_CN -> '' 获取英文用
+#    file: plugins/cloudbees-folder-plugin/src/main/resources/com/cloudbees/hudson/plugins/folder/AbstractFolder/view-index-top_zh_CN.properties # 文件地址用来读取 ascii
+#    key: CliLink.DisplayName
+#    type: plugin
+#  }
+  # core - core/src/main/resources/jenkins/management/Messages_zh_CN.properties:CliLink.DisplayName
+
+
+#      - name: Check out Git repository
+#          uses: actions/checkout@v2
+
+  # 对照生成 file 的地址
+
+  # 获取 key 对应的原文
+
+  # ascii2native
+
+
+#  git-repo-backup:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@master
+#      - name: git-repo-backup
+#        uses: jenkins-zh/git-backup-actions@v0.0.3
+#        env:
+#          GIT_DEPLOY_KEY: ${{ secrets.GIT_DEPLOY_KEY }}
+#          TARGET_GIT: "git@gitee.com:jenkins-zh/localization-zh-cn-plugin.git"
