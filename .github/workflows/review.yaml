@@ -36,9 +36,8 @@ jobs:
         run: |
           pip install -r requirements.txt
           python review.py --add={{ steps.changed-files.outputs.added_files }} --mod={{ steps.changed-files.outputs.modified_files }}
-#      - name: Run Python Script
-#        uses: jannekem/run-python-script-action@v1.2
-      - uses: mshick/add-pr-comment@v1
-          with:
-            message: |
-              {{ steps.python-result.outputs }}
+      - name: add comment to pr
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            {{ steps.python-result.outputs }}
