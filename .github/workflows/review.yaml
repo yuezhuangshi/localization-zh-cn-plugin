@@ -35,7 +35,7 @@ jobs:
         id: python-result
         run: |
           pip install -r requirements.txt
-          python review.py --add={{ steps.changed-files.outputs.added_files }} --mod={{ steps.changed-files.outputs.modified_files }}
+          python review.py --add=${{ steps.changed-files.outputs.added_files }} --mod=${{ steps.changed-files.outputs.modified_files }}
       - name: add comment to pr
         uses: mshick/add-pr-comment@v1
         with:
