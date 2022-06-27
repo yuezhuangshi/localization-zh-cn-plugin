@@ -83,15 +83,15 @@ def main(arguments):
         if result['exist']:
             string.append('#### ' + result['file_name'])
             string.append("Original")
-            string.append("'''")
+            string.append("```")
             for k1, v1 in result['original_content'].items():
                 string.append(k1 + '=' + v1.data)
-            string.append("'''")
+            string.append("```")
             string.append("Current")
-            string.append("'''")
+            string.append("```")
             for k2, v2 in result['translate_content'].items():
                 string.append(k2 + '=' + v2.data)
-            string.append("'''\n")
+            string.append("```\n")
 
     markdown = "\n".join(string)
     print(markdown)
