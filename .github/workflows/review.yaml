@@ -35,12 +35,13 @@ jobs:
         id: python-result
         run: |
           pip install -r requirements.txt
-          python review.py --add=${{ steps.changed-files.outputs.added_files }} --mod=${{ steps.changed-files.outputs.modified_files }}
+          output=$(python review.py --add=${{ steps.changed-files.outputs.added_files }} --mod=${{ steps.changed-files.outputs.modified_files }})
+          echo "::set-output name=conclusion::$output"
       - name: add comment to pr
         uses: mshick/add-pr-comment@v1
         with:
           message: |
-            ${{ steps.python-result.outputs }}
+            ${{ steps.python-result.outputs.conclusion }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
           allow-repeats: false # This is the default
