@@ -93,7 +93,7 @@ def main(arguments):
                 string.append(k2 + '=' + v2.data)
             string.append("'''\n")
 
-    markdown = "\n".join(str)
+    markdown = "\n".join(string)
     print(markdown)
 
 
