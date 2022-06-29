@@ -3,6 +3,8 @@ name: Grab original and translated files for code review
 on:
   pull_request:
     types:
+      - opened
+      - reopened
       - synchronize
     paths:
       - 'cli/**/**.properties'
