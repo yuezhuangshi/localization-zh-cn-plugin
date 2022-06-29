@@ -41,7 +41,7 @@ def en_us_file_name_in_jenkins_core(current_file_name):
 
 
 def en_us_file_name_in_jenkins_plugins(current_file_name, plugin_name):
-    return current_file_name.replace('plugins/' + plugin_name, '').replace('_zh_CN', '')
+    return current_file_name.replace('plugins/{0}/'.format(plugin_name), '').replace('_zh_CN', '')
 
 
 # Metadata of the files, original and translated files etc..
